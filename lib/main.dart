@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokemon_teams/application/pages/home/home_page.dart';
 import 'package:pokemon_teams/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ThemeService>(builder: (context, themeService, child) {
       return MaterialApp(
-       home: Placeholder(),
+       home: const HomePage(),
         debugShowCheckedModeBanner: false,
   
         themeMode: themeService.isDarkModeOn ? ThemeMode.dark : ThemeMode.light,
