@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ThemeService>(builder: (context, themeService, child) {
       return MaterialApp(
-       home: const HomePage(),
+       home: const HomePageWrapperProvider(),
         debugShowCheckedModeBanner: false,
   
         themeMode: themeService.isDarkModeOn ? ThemeMode.dark : ThemeMode.light,
