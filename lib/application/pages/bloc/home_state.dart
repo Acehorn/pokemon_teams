@@ -1,6 +1,6 @@
 part of 'home_bloc.dart';
 
-abstract class HomeState {
+abstract class HomeState extends Equatable {
   const HomeState();
 
   @override
@@ -19,7 +19,6 @@ class HomeStateLoaded extends HomeState {
   const HomeStateLoaded({required this.elementType, required this.pokemonName, required this.sprite});
 }
 
-
 class HomeStateError extends HomeState {
   final String messageError;
 
@@ -28,3 +27,5 @@ class HomeStateError extends HomeState {
   @override
   List<Object> get props => [];
 }
+
+

@@ -62,6 +62,7 @@ class HomePage extends StatelessWidget {
 
                 return Expanded(
                   child: ListView.builder(
+                    
                       shrinkWrap: true,
                       itemCount: elementsPokemon.length,
                       itemBuilder: (context, index) {
