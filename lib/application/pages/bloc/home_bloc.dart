@@ -1,19 +1,30 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../data/models/pokemon_model.dart';
+import '../../../domain/usecases/home_usecases.dart';
+import '../../core/utils/utils.dart';
 part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
     on<HomeRequestedEvent>((event, emit) async {
-     emit(HomeStateLoading());
-     debugPrint("fake get data");
-    await Future.delayed(const Duration(seconds: 4), (){});
-     debugPrint("got data");
-     emit(const HomeStateLoaded(elementType: "dark", pokemonName: "Umbreon", sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/197.png"));
+      emit(HomeStateLoading());
+      final HomeUseCases homeuseCases = HomeUseCases();
+
+      final failureOrData = await homeuseCases.getPokemons();
+      /*   final HomeEntity listPokemon = await homeuseCases.getPokemons(); */
+      failureOrData.fold(
+          (failure) =>
+              emit(HomeStateError(messageError: mapFailureToMessage(failure))),
+          (listPokemon) =>
+              emit(HomeStateLoaded(listpokemons: listPokemon.pokemonList)));
      
     });
    
   }
+
 
 }

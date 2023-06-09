@@ -12,11 +12,12 @@ class HomeInitial extends HomeState {}
 class HomeStateLoading extends HomeState {}
 
 class HomeStateLoaded extends HomeState {
-  final String elementType;
-  final String pokemonName;
-  final String sprite;
+  final List<PokemonModel> listpokemons;
 
-  const HomeStateLoaded({required this.elementType, required this.pokemonName, required this.sprite});
+  const HomeStateLoaded({required this.listpokemons});
+
+  @override
+  List<Object> get props => [];
 }
 
 class HomeStateError extends HomeState {
@@ -27,5 +28,4 @@ class HomeStateError extends HomeState {
   @override
   List<Object> get props => [];
 }
-
 

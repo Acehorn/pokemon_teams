@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import '../../../data/models/pokemon_model.dart';
+import '../../../domain/failures/failure.dart';
 
 List<String> elementsPokemon = [
   "bug",
@@ -70,3 +73,29 @@ typeElementColor(String element) {
   }
   return Colors.grey;
 }
+
+class PokemonElement {
+  String name;
+  String element;
+  String sprite;
+
+  PokemonElement(
+      {required this.name, required this.element, required this.sprite});
+}
+
+String mapFailureToMessage(Failure failure) {
+  switch (failure.runtimeType) {
+    case ServerFailure:
+      return "API error, try again later";
+
+    case CacheFailure:
+      return "Cache failed, please try again";
+
+    default:
+      return "Something gone wrong, Please try again later";
+  }
+}
+
+
+
+List<PokemonModel> favorites = [];
