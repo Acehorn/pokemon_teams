@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
+import 'package:pokemon_teams/application/core/utils/shared.dart';
+import 'package:sqflite/sqflite.dart';
 import '../../../data/models/pokemon_model.dart';
 import '../../../domain/failures/failure.dart';
 
@@ -97,5 +99,27 @@ String mapFailureToMessage(Failure failure) {
 }
 
 
+/*    Set<PokemonModel> favorites = <PokemonModel>{bulbasaur,mew}; */
 
 List<PokemonModel> favorites = [];
+
+var database;
+
+
+initDB() async {
+  
+    WidgetsFlutterBinding.ensureInitialized();
+   database = openDatabase(
+
+    join(await getDatabasesPath(), 'pokemon_database.db'),
+    onCreate: (db, version) {
+      return db.execute(
+        'CREATE TABLE pokemons(id INTEGER PRIMARY KEY, name TEXT, sprites TEXT, types TEXT)',
+      );
+    },
+    version: 1,
+  );
+
+  favorites = await  pokemons();
+
+}

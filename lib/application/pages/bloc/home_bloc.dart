@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../data/models/pokemon_model.dart';
 import '../../../domain/usecases/home_usecases.dart';
 import '../../core/utils/utils.dart';

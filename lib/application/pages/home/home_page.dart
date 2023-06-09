@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../core/utils/utils.dart';
 import '../../core/widgets/app_bar.dart';
 import '../bloc/home_bloc.dart';
 import '../settings_page/settings_page.dart';
 import '../widgets/error_message.dart';
+import '../widgets/pokemon_card.dart';
 
 class HomePageWrapperProvider extends StatelessWidget {
   const HomePageWrapperProvider({super.key});
@@ -27,6 +30,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
+    initDB();
     super.initState();
   }
 
@@ -76,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                 );
               } else if (state is HomeStateLoaded) {
                 return Expanded(
-                    child: Container());
+                    child: PokemonCard(listpokemons: state.listpokemons));
               } else if (state is HomeStateError) {
                 return ErrorMessage(message: state.messageError);
               }
