@@ -12,18 +12,32 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeRequestedEvent>((event, emit) async {
       emit(HomeStateLoading());
       final HomeUseCases homeuseCases = HomeUseCases();
+      final failureOrData = await homeuseCases.getPokemons(1, 8);
 
-      final failureOrData = await homeuseCases.getPokemons();
-      /*   final HomeEntity listPokemon = await homeuseCases.getPokemons(); */
       failureOrData.fold(
           (failure) =>
               emit(HomeStateError(messageError: mapFailureToMessage(failure))),
-          (listPokemon) =>
-              emit(HomeStateLoaded(listpokemons: listPokemon.pokemonList)));
-     
+          (listPokemon) {
+        for (var i = 0; i < listPokemon.pokemonList.length; i++) {
+          listLocalPokemon.add(listPokemon.pokemonList[i]);
+        }
+        emit(HomeStateLoaded(listpokemons: listLocalPokemon));
+      });
     });
-   
+
+    on<HomeRequestedEventUpdate>((event, emit) async {
+      final HomeUseCases homeuseCases = HomeUseCases();
+      final failureOrData = await homeuseCases.getPokemons(
+          listLocalPokemon.length + 1, listLocalPokemon.length + 8);
+
+      failureOrData.fold(
+          (failure) =>
+              emit(HomeStateError(messageError: mapFailureToMessage(failure))),
+          (listPokemon) {
+        listLocalPokemon.addAll(listPokemon.pokemonList);
+
+        emit(HomeStateLoaded(listpokemons: listLocalPokemon));
+      });
+    });
   }
-
-
 }

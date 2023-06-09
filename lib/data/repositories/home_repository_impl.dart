@@ -10,10 +10,10 @@ class HomeRepositoryImpl implements HomeRepository {
 final HomeRemoteDatasource homeRemoteDatasource = HomeRemoteDatasourceImpl();
 
   @override
-  Future<Either<Failure, HomeEntity>> getPokemonFromDataSource() async {
+  Future<Either<Failure, HomeEntity>> getPokemonFromDataSource(int start, int end) async {
 
 
-final result = await homeRemoteDatasource.getPokemonFromApi();
+final result = await homeRemoteDatasource.getPokemonFromApi(start, end);
 
 return right(HomeEntity(pokemonList: result));
   }

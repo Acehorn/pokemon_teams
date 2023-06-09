@@ -7,43 +7,44 @@ import '../../core/utils/utils.dart';
 import '../information_page.dart/information_page.dart';
 
 class PokemonCard extends StatefulWidget {
-  final List<PokemonModel> listpokemons;
-  const PokemonCard({super.key, required this.listpokemons});
+final PokemonModel pokemon;
+
+  const PokemonCard({super.key, required this.pokemon});
 
   @override
   State<PokemonCard> createState() => _PokemonCardState();
 }
 
+
 class _PokemonCardState extends State<PokemonCard> {
+
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        shrinkWrap: true,
-        itemCount: widget.listpokemons.length,
-        itemBuilder: (context, index) {
+
           return Card(
             shape: RoundedRectangleBorder(
               side: BorderSide(
-                color: widget.listpokemons[index].types == "dark"
+                color: widget.pokemon.types == "dark"
                     ? Colors.white
-                    : typeElementColor(widget.listpokemons[index].types),
+                    : typeElementColor(widget.pokemon.types),
               ),
               borderRadius: BorderRadius.circular(20.0), //<-- SEE HERE
             ),
-            color: typeElementColor(widget.listpokemons[index].types),
+            color: typeElementColor(widget.pokemon.types),
             child: ListTile(
               onTap: () {
                  Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => InformationPage(
-                         pokemon: widget.listpokemons[index],
+                         pokemon: widget.pokemon,
                           )),
                 ); 
 
               },
               // ignore: iterable_contains_unrelated_type
-              trailing:  favorite(widget.listpokemons[index]),
+              trailing:  favorite(widget.pokemon),
               contentPadding: const EdgeInsets.all(24),
               title: Row(
                 children: [
@@ -51,7 +52,7 @@ class _PokemonCardState extends State<PokemonCard> {
                       height: 50,
                       width: 50,
                       child: Image.network(
-                          widget.listpokemons[index].sprites,
+                          widget.pokemon.sprites,
                           loadingBuilder: (BuildContext context, Widget child,
                               ImageChunkEvent? loadingProgress) {
                         if (loadingProgress == null) {
@@ -69,7 +70,7 @@ class _PokemonCardState extends State<PokemonCard> {
                               StackTrace? stackTrace) {
                         return const Center(child: Text('😢'));
                       })),
-                  Text(widget.listpokemons[index].name,
+                  Text(widget.pokemon.name,
                       style:
                           const TextStyle(color: Colors.white, fontSize: 18)),
                 ],
@@ -78,12 +79,12 @@ class _PokemonCardState extends State<PokemonCard> {
                 height: 20,
                 width: 20,
                 child: SvgPicture.asset(
-                    typeElementIcon(widget.listpokemons[index].types),
+                    typeElementIcon(widget.pokemon.types),
                     semanticsLabel: 'Acme Logo'),
               ),
             ),
           );
-        });
+        
   }
 
 favorite(PokemonModel id) {
@@ -94,7 +95,7 @@ favorite(PokemonModel id) {
       return GestureDetector(
         child: const Icon(
           Icons.favorite,
-          color: Colors.red,
+          color:  Colors.red,
         ),
         onTap: () async {
           setState(() {
@@ -108,9 +109,9 @@ await deletePokemon(id.id);
   }
 
   return GestureDetector(
-    child: const Icon(
+    child:  const Icon(
       Icons.favorite,
-      color: Colors.black,
+      color:  Colors.white 
     ),
        onTap: () async {
         setState(() {

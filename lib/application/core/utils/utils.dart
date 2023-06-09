@@ -5,6 +5,9 @@ import 'package:sqflite/sqflite.dart';
 import '../../../data/models/pokemon_model.dart';
 import '../../../domain/failures/failure.dart';
 
+
+
+
 List<String> elementsPokemon = [
   "bug",
   "dark",
@@ -102,6 +105,7 @@ String mapFailureToMessage(Failure failure) {
 /*    Set<PokemonModel> favorites = <PokemonModel>{bulbasaur,mew}; */
 
 List<PokemonModel> favorites = [];
+List<PokemonModel> listLocalPokemon = [];
 
 var database;
 

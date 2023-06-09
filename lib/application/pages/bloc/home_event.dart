@@ -7,3 +7,6 @@ abstract class HomeEvent extends Equatable {
 }
 
 class HomeRequestedEvent extends HomeEvent {}
+
+
+class HomeRequestedEventUpdate extends HomeEvent {}

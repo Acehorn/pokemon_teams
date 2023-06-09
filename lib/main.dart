@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:pokemon_teams/application/core/theme_service.dart';
+import 'package:pokemon_teams/application/pages/favorite_page.dart/favorite_page.dart';
+import 'package:pokemon_teams/application/pages/home/home_page.dart';
+import 'package:pokemon_teams/application/pages/settings_page/settings_page.dart';
 import 'package:pokemon_teams/theme.dart';
 import 'package:provider/provider.dart';
-import 'application/core/theme_service.dart';
-import 'application/pages/home/home_page.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -17,7 +19,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ThemeService>(builder: (context, themeService, child) {
       return MaterialApp(
-        home: const HomePageWrapperProvider(),
+        initialRoute: "/",
+        routes: {
+          '/': (context) => const HomePageWrapperProvider(),
+          '/favorites': (context) => const FavoritePage(),
+          '/settings': (context) => const SettingsPage(),
+        },
         debugShowCheckedModeBanner: false,
         themeMode: themeService.isDarkModeOn ? ThemeMode.dark : ThemeMode.light,
         theme: AppTheme.lightTheme,

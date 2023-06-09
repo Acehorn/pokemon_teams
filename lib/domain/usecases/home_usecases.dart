@@ -7,10 +7,10 @@ class HomeUseCases {
 
   final  homeRepository = HomeRepositoryImpl();
 
-  Future<Either<Failure,HomeEntity>> getPokemons() async {
+  Future<Either<Failure,HomeEntity>> getPokemons(int start, int end) async {
 
 
-   return homeRepository.getPokemonFromDataSource();
+   return homeRepository.getPokemonFromDataSource(start,end);
 
 
   }

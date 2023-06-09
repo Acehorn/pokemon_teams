@@ -17,6 +17,7 @@ class _AppBarPokemonState extends State<AppBarPokemon> {
 
       centerTitle: true,
         elevation: 0.1,
+   
         title: SizedBox(
             height: 140,
             width: 100,

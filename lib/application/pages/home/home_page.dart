@@ -37,9 +37,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
+    final ScrollController scrollController = ScrollController();
+    final HomeBloc myDataBloc = HomeBloc();
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(40),
+          preferredSize: const Size.fromHeight(65),
           child: AppBarPokemon(
             actions: [
               IconButton(
@@ -52,11 +54,9 @@ class _HomePageState extends State<HomePage> {
                       Icon(Icons.favorite, color: themeData.primaryColorLight)),
               IconButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SettingsPage()),
-                    );
+                    Navigator.pushNamed(context, '/settings').then((_) {
+                      setState(() {});
+                    });
                   },
                   icon:
                       Icon(Icons.settings, color: themeData.primaryColorLight)),
@@ -80,7 +80,25 @@ class _HomePageState extends State<HomePage> {
                 );
               } else if (state is HomeStateLoaded) {
                 return Expanded(
-                    child: PokemonCard(listpokemons: state.listpokemons));
+                    child: NotificationListener<ScrollEndNotification>(
+                  onNotification: (notification) {
+                    if (scrollController.position.extentAfter == 0) {
+                      setState(() {});
+                      myDataBloc.add(HomeRequestedEventUpdate());
+                    }
+                    return true;
+                  },
+                  child: ListView.builder(
+                    controller: scrollController,
+                    itemCount: state.listpokemons
+                        .length, // Número total de elementos en la lista
+                    itemBuilder: (context, index) {
+                      return PokemonCard(
+                        pokemon: state.listpokemons[index],
+                      );
+                    },
+                  ),
+                ));
               } else if (state is HomeStateError) {
                 return ErrorMessage(message: state.messageError);
               }
@@ -90,7 +108,5 @@ class _HomePageState extends State<HomePage> {
         ]),
       ),
     );
-    
   }
-
 }
