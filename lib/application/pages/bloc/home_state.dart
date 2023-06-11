@@ -11,6 +11,8 @@ class HomeInitial extends HomeState {}
 
 class HomeStateLoading extends HomeState {}
 
+class HomeStateLoadingMore extends HomeState {}
+
 class HomeStateLoaded extends HomeState {
   final List<PokemonModel> listpokemons;
 

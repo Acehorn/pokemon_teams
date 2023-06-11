@@ -4,6 +4,6 @@ import '../failures/failure.dart';
 
 abstract class HomeRepository {
 
-  Future<Either<Failure,HomeEntity>> getPokemonFromDataSource(int start, int end);
+  Future<Either<Failure,HomeEntity>> getPokemonFromDataSource(int pokemonId);
 
 }

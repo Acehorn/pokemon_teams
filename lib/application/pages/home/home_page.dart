@@ -28,17 +28,25 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  ScrollController scrollController = ScrollController();
+  HomeBloc myDataBloc = HomeBloc();
   @override
   void initState() {
     initDB();
     super.initState();
+/* 
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        myDataBloc.add(HomeRequestedEventUpdate());
+      }
+    }); */
   }
 
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-    final ScrollController scrollController = ScrollController();
-    final HomeBloc myDataBloc = HomeBloc();
+    bool isScrollEndNotificationHandled = false;
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(65),
@@ -78,17 +86,27 @@ class _HomePageState extends State<HomePage> {
                     color: themeData.colorScheme.secondary,
                   ),
                 );
+              } else if (state is HomeStateLoadingMore) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: themeData.colorScheme.secondary,
+                  ),
+                );
               } else if (state is HomeStateLoaded) {
                 return Expanded(
-                    child: NotificationListener<ScrollEndNotification>(
+                  child:  NotificationListener<ScrollEndNotification>(
                   onNotification: (notification) {
                     if (scrollController.position.extentAfter == 0) {
-                      setState(() {});
-                      myDataBloc.add(HomeRequestedEventUpdate());
+                      if (!isScrollEndNotificationHandled) {
+                        setState(() {});
+                        myDataBloc.add(HomeRequestedEventUpdate());
+                        isScrollEndNotificationHandled = true;
+                      }
                     }
                     return true;
                   },
-                  child: ListView.builder(
+                  child: 
+                      ListView.builder(
                     controller: scrollController,
                     itemCount: state.listpokemons
                         .length, // Número total de elementos en la lista
@@ -98,8 +116,8 @@ class _HomePageState extends State<HomePage> {
                       );
                     },
                   ),
-                ));
-              } else if (state is HomeStateError) {
+                )
+           ); } else if (state is HomeStateError) {
                 return ErrorMessage(message: state.messageError);
               }
               return const SizedBox();

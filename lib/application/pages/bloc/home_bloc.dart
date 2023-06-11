@@ -9,10 +9,11 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
+    int pokemonCounter = 8;
     on<HomeRequestedEvent>((event, emit) async {
       emit(HomeStateLoading());
       final HomeUseCases homeuseCases = HomeUseCases();
-      final failureOrData = await homeuseCases.getPokemons(1, 8);
+      final failureOrData = await homeuseCases.getPokemons(pokemonCounter);
 
       failureOrData.fold(
           (failure) =>
@@ -26,10 +27,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     });
 
     on<HomeRequestedEventUpdate>((event, emit) async {
+      pokemonCounter = pokemonCounter+3;
+      emit(HomeStateLoadingMore());
       final HomeUseCases homeuseCases = HomeUseCases();
-      final failureOrData = await homeuseCases.getPokemons(
-          listLocalPokemon.length + 1, listLocalPokemon.length + 8);
-
+      final failureOrData = await homeuseCases.getPokemons(pokemonCounter);
       failureOrData.fold(
           (failure) =>
               emit(HomeStateError(messageError: mapFailureToMessage(failure))),
