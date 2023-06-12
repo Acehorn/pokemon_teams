@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pokemon_teams/application/core/utils/utils.dart';
-import 'package:pokemon_teams/application/pages/widgets/pokemon_card.dart';
 import 'package:pokemon_teams/application/pages/widgets/team_card_pokemon.dart';
 
 class FavoriteDialog extends StatefulWidget {
@@ -48,7 +47,7 @@ class _FavoriteDialogState extends State<FavoriteDialog> {
                         },
                       )),
             ElevatedButton(
-              child: const Text('Aceptar'),
+              child:  const Text('Aceptar', style: TextStyle(color:  Colors.amberAccent )),
               onPressed: () {
               Navigator.pop(context);
               },

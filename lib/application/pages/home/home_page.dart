@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokemon_teams/application/pages/widgets/favorite_dialog.dart';
-
+import 'package:pokemon_teams/injection.dart';
 import '../../core/utils/utils.dart';
 import '../../core/widgets/app_bar.dart';
 import '../bloc/home_bloc.dart';
-import '../settings_page/settings_page.dart';
 import '../widgets/error_message.dart';
 import '../widgets/pokemon_card.dart';
 
@@ -15,7 +14,7 @@ class HomePageWrapperProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeBloc()..add(HomeRequestedEvent()),
+      create: (context) => sl<HomeBloc>()..add(HomeRequestedEvent()),
       child: const HomePage(),
     );
   }
@@ -30,7 +29,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ScrollController scrollController = ScrollController();
-  HomeBloc myDataBloc = HomeBloc();
+  HomeBloc myDataBloc = sl<HomeBloc>();
   @override
   void initState() {
     initDB();

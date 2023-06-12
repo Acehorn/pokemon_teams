@@ -1,17 +1,14 @@
 import 'package:dartz/dartz.dart';
-import '../../data/repositories/home_repository_impl.dart';
+import 'package:pokemon_teams/domain/repositories/home_repository.dart';
 import '../entities/home_entitiy.dart';
 import '../failures/failure.dart';
 
 class HomeUseCases {
+/*   final  homeRepository = HomeRepositoryImpl(); */
+  HomeUseCases({required this.homeRepository});
+  final HomeRepository homeRepository;
 
-  final  homeRepository = HomeRepositoryImpl();
-
-  Future<Either<Failure,HomeEntity>> getPokemons(int pokemonId) async {
-
-
-   return homeRepository.getPokemonFromDataSource(pokemonId);
-
-
+  Future<Either<Failure, HomeEntity>> getPokemons(int pokemonId) async {
+    return homeRepository.getPokemonFromDataSource(pokemonId);
   }
 }

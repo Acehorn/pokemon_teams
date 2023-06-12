@@ -4,8 +4,11 @@ import 'package:pokemon_teams/application/pages/home/home_page.dart';
 import 'package:pokemon_teams/application/pages/settings_page/settings_page.dart';
 import 'package:pokemon_teams/theme.dart';
 import 'package:provider/provider.dart';
+import 'injection.dart' as di;
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
   runApp(ChangeNotifierProvider(
     create: (context) => ThemeService(),
     child: const MyApp(),

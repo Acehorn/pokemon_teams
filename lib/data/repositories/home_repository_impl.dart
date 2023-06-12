@@ -7,7 +7,8 @@ import '../datasources/home_remote_datasources.dart';
 
 
 class HomeRepositoryImpl implements HomeRepository {
-final HomeRemoteDatasource homeRemoteDatasource = HomeRemoteDatasourceImpl();
+  HomeRepositoryImpl({required this.homeRemoteDatasource});
+final HomeRemoteDatasource homeRemoteDatasource;
 
   @override
   Future<Either<Failure, HomeEntity>> getPokemonFromDataSource(int pokemonId) async {
