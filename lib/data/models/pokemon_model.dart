@@ -27,6 +27,22 @@ class PokemonModel {
     String sprites;
     String types;
     int id;
+
+    @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is PokemonModel &&
+        id == other.id &&
+        name == other.name &&
+        sprites == other.sprites &&
+        types == other.types;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^ name.hashCode ^ sprites.hashCode ^ types.hashCode;
+  }
     
     factory PokemonModel.fromJson(Map<String, dynamic> json) => PokemonModel(
         name: json["name"],
