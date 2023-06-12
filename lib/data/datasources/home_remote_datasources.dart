@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:pokemon_teams/domain/failures/failure.dart';
-
+import 'package:pokemon_teams/data/exceptions/exceptions.dart';
 import '../models/pokemon_model.dart';
 
 abstract class HomeRemoteDatasource {
@@ -23,7 +22,7 @@ class HomeRemoteDatasourceImpl implements HomeRemoteDatasource {
         final response = await dio.get("https://pokeapi.co/api/v2/pokemon/$i");
         final responseBody = response.data;
         if (response.statusCode != 200) {
-          throw ServerFailure();
+          throw ServerException();
         } else {
           list.add(PokemonModel(
               id: responseBody["id"],
@@ -39,7 +38,7 @@ class HomeRemoteDatasourceImpl implements HomeRemoteDatasource {
         final responseBody = response.data;
 
         if (response.statusCode != 200) {
-          throw ServerFailure();
+          throw ServerException();
         } else {
           list.add(PokemonModel(
               id: responseBody["id"],

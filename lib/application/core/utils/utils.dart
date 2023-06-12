@@ -107,6 +107,7 @@ String mapFailureToMessage(Failure failure) {
 List<PokemonModel> favorites = [];
 List<PokemonModel> listLocalPokemon = [];
 
+// ignore: prefer_typing_uninitialized_variables
 var database;
 
 

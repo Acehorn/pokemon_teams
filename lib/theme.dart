@@ -15,7 +15,6 @@ class AppTheme {
   static const Color _darkPrimaryColor = Colors.black;
   static const Color _darkPrimaryVariantColor = Colors.black;
   static const Color _darkOnPrimaryColor = Colors.black;
-  static const Color _darkTextColorPrimary = Colors.white;
   static const Color _appbarColorDark = Colors.black;
 
   static const Color _iconColor = Colors.yellow;
@@ -39,27 +38,16 @@ class AppTheme {
       fontSize: 16);
 
   static const TextTheme _lightTextTheme = TextTheme(
-    headline1: _lightHeadingText,
-    bodyText1: _lightBodyText,
+    headlineLarge: _lightHeadingText,
+    bodyLarge: _lightBodyText
   );
 
-  // *****************
-  // Text Style - dark
-  // *****************
-  static final TextStyle _darkThemeHeadingTextStyle =
-      _lightHeadingText.copyWith(color: _darkTextColorPrimary);
-
-  static final TextStyle _darkThemeBodyeTextStyle =
-      _lightBodyText.copyWith(color: _darkTextColorPrimary);
-
-  static final TextTheme _darkTextTheme = TextTheme(
-    headline1: _darkThemeHeadingTextStyle,
-    bodyText1: _darkThemeBodyeTextStyle,
+    static const TextTheme _darkTextTheme = TextTheme(
+    headlineLarge: _lightHeadingText,
+    bodyLarge: _lightBodyText
   );
 
-  // *****************
-  // Theme light/dark
-  // *****************
+
 
   static final ThemeData lightTheme = ThemeData(
       scaffoldBackgroundColor: _lightPrimaryColor,
