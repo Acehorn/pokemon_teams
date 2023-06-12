@@ -10,80 +10,49 @@ abstract class HomeRemoteDatasource {
 }
 
 class HomeRemoteDatasourceImpl implements HomeRemoteDatasource {
-/*   final client = http.Client(); */
-/* final dio = Dio();
-
-  @override
-  Future<List<PokemonModel>> getPokemonFromApi(int start, int end) async {
-    List<PokemonModel> list = [];
-    for (var i = start; i < end; i++) {
-      final response = await dio.get(
-      "https://pokeapi.co/api/v2/pokemon/$i");
-     
-    
-
-      final responseBody = response.data;
-
-      list.add(PokemonModel(
-        id: responseBody["id"],
-          name: responseBody["name"],
-          sprites:"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$i.png",
-          types: responseBody["types"][0]["type"]["name"]));
-    }
-
-    return list;
-  } */
-
-
   final dio = Dio();
 
   @override
   Future<List<PokemonModel>> getPokemonFromApi(int idPokemon) async {
     List<PokemonModel> list = [];
 
-    if(idPokemon == 8){
-    for (var i = 1; i < 8; i++) {
-      final response = await dio.get(
-      "https://pokeapi.co/api/v2/pokemon/$i");
+    if (idPokemon == 10) {
+      for (var i = 1; i < 10; i++) {
+        final response = await dio.get("https://pokeapi.co/api/v2/pokemon/$i");
         final responseBody = response.data;
 
-      list.add(PokemonModel(
-        id: responseBody["id"],
-          name: responseBody["name"],
-          sprites:"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$i.png",
-          types: responseBody["types"][0]["type"]["name"]));
+        list.add(PokemonModel(
+            id: responseBody["id"],
+            name: responseBody["name"],
+            sprites:
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$i.png",
+            types: responseBody["types"][0]["type"]["name"]));
+      }
+    } else {
     
-
-   
-    }
-    } else{
-   /*    final response = await dio.get(
-      "https://pokeapi.co/api/v2/pokemon/$idPokemon");
-     
-       final responseBody = response.data;
-
-      list.add(PokemonModel(
-        id: responseBody["id"],
-          name: responseBody["name"],
-          sprites:"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$idPokemon.png",
-          types: responseBody["types"][0]["type"]["name"])); */
-
-    for (var i = idPokemon; i < idPokemon+2; i++) {
-      final response = await dio.get(
-      "https://pokeapi.co/api/v2/pokemon/$i");
+   /*      final response = await dio.get("https://pokeapi.co/api/v2/pokemon/$idPokemon");
         final responseBody = response.data;
 
-      list.add(PokemonModel(
-        id: responseBody["id"],
-          name: responseBody["name"],
-          sprites:"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$i.png",
-          types: responseBody["types"][0]["type"]["name"]));
-    
+        list.add(PokemonModel(
+            id: responseBody["id"],
+            name: responseBody["name"],
+            sprites:
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$idPokemon.png",
+            types: responseBody["types"][0]["type"]["name"])); */
 
-   
-    }
-    }
+       for (var i = idPokemon-10; i < idPokemon; i++) {
+        final response = await dio.get("https://pokeapi.co/api/v2/pokemon/$i");
+        final responseBody = response.data;
 
+        list.add(PokemonModel(
+            id: responseBody["id"],
+            name: responseBody["name"],
+            sprites:
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/$i.png",
+            types: responseBody["types"][0]["type"]["name"]));
+      }
+      
+    }
 
     return list;
   }

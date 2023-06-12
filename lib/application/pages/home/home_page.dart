@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokemon_teams/application/pages/widgets/favorite_dialog.dart';
 
 import '../../core/utils/utils.dart';
 import '../../core/widgets/app_bar.dart';
@@ -34,13 +35,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     initDB();
     super.initState();
-/* 
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        myDataBloc.add(HomeRequestedEventUpdate());
-      }
-    }); */
   }
 
   @override
@@ -54,9 +48,11 @@ class _HomePageState extends State<HomePage> {
             actions: [
               IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/favorites').then((_) {
-                      setState(() {});
-                    });
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const FavoriteDialog();
+                        });
                   },
                   icon:
                       Icon(Icons.favorite, color: themeData.primaryColorLight)),
@@ -86,15 +82,9 @@ class _HomePageState extends State<HomePage> {
                     color: themeData.colorScheme.secondary,
                   ),
                 );
-              } else if (state is HomeStateLoadingMore) {
-                return Center(
-                  child: CircularProgressIndicator(
-                    color: themeData.colorScheme.secondary,
-                  ),
-                );
               } else if (state is HomeStateLoaded) {
                 return Expanded(
-                  child:  NotificationListener<ScrollEndNotification>(
+                    child: NotificationListener<ScrollEndNotification>(
                   onNotification: (notification) {
                     if (scrollController.position.extentAfter == 0) {
                       if (!isScrollEndNotificationHandled) {
@@ -105,8 +95,7 @@ class _HomePageState extends State<HomePage> {
                     }
                     return true;
                   },
-                  child: 
-                      ListView.builder(
+                  child: ListView.builder(
                     controller: scrollController,
                     itemCount: state.listpokemons
                         .length, // Número total de elementos en la lista
@@ -116,8 +105,8 @@ class _HomePageState extends State<HomePage> {
                       );
                     },
                   ),
-                )
-           ); } else if (state is HomeStateError) {
+                ));
+              } else if (state is HomeStateError) {
                 return ErrorMessage(message: state.messageError);
               }
               return const SizedBox();

@@ -127,3 +127,12 @@ initDB() async {
   favorites = await  pokemons();
 
 }
+
+
+
+void mostrarSnackbar(BuildContext context, String mensaje) {
+  final snackbar = SnackBar(content: Text(mensaje),
+  duration: const Duration(seconds: 1),
+  );
+  ScaffoldMessenger.of(context).showSnackBar(snackbar);
+}

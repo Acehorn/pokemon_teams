@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../../../data/models/pokemon_model.dart';
-import '../../core/utils/shared.dart';
+import 'package:pokemon_teams/data/models/pokemon_model.dart';
 import '../../core/utils/utils.dart';
 import '../information_page.dart/information_page.dart';
 
-class PokemonCard extends StatefulWidget {
+class TeamCardPokemon extends StatefulWidget {
   final PokemonModel pokemon;
 
-  const PokemonCard({super.key, required this.pokemon});
+  const TeamCardPokemon({super.key, required this.pokemon});
 
   @override
-  State<PokemonCard> createState() => _PokemonCardState();
+  State<TeamCardPokemon> createState() => _TeamCardPokemonState();
 }
 
-class _PokemonCardState extends State<PokemonCard> {
+class _TeamCardPokemonState extends State<TeamCardPokemon> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -29,6 +27,7 @@ class _PokemonCardState extends State<PokemonCard> {
       ),
       color: typeElementColor(widget.pokemon.types),
       child: ListTile(
+        subtitle: const Text("Ya es parte de tu equipo.", style: TextStyle(color: Colors.white)),
         onTap: () {
           Navigator.push(
             context,
@@ -39,8 +38,7 @@ class _PokemonCardState extends State<PokemonCard> {
           );
         },
         // ignore: iterable_contains_unrelated_type
-        trailing: favorite(widget.pokemon),
-        contentPadding: const EdgeInsets.all(24),
+        contentPadding: const EdgeInsets.all(8),
         title: Row(
           children: [
             SizedBox(
@@ -75,42 +73,6 @@ class _PokemonCardState extends State<PokemonCard> {
               semanticsLabel: 'Acme Logo'),
         ),
       ),
-    );
-  }
-
-  favorite(PokemonModel id) {
-    for (var i = 0; i < favorites.length; i++) {
-      if (favorites[i].id == id.id) {
-        return GestureDetector(
-          child: const Icon(
-            Icons.favorite,
-            color: Colors.red,
-          ),
-          onTap: () async {
-            setState(() {});
-            favorites.remove(favorites[i]);
-            await deletePokemon(id.id);
-          },
-        );
-      }
-    }
-
-    return GestureDetector(
-      child: const Icon(Icons.favorite, color: Colors.white),
-      onTap: () async {
-        setState(() {});
-
-        if (favorites.length <= 4) {
-          favorites.add(id);
-
-// ignore: prefer_collection_literals
-          Set ids = Set();
-          favorites.retainWhere((x) => ids.add(x.id));
-          await insertPokemon(id);
-        } else{
-          mostrarSnackbar(context, "Equipo completo");
-        }
-      },
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pokemon_teams/application/core/theme_service.dart';
-import 'package:pokemon_teams/application/pages/favorite_page.dart/favorite_page.dart';
 import 'package:pokemon_teams/application/pages/home/home_page.dart';
 import 'package:pokemon_teams/application/pages/settings_page/settings_page.dart';
 import 'package:pokemon_teams/theme.dart';
@@ -22,7 +21,6 @@ class MyApp extends StatelessWidget {
         initialRoute: "/",
         routes: {
           '/': (context) => const HomePageWrapperProvider(),
-          '/favorites': (context) => const FavoritePage(),
           '/settings': (context) => const SettingsPage(),
         },
         debugShowCheckedModeBanner: false,
